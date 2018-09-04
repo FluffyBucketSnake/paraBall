@@ -1,0 +1,29 @@
+Feito:
+    -Alpha:
+        #Criar um novo mecanismo de controles.
+        #Criar a tela de game over.
+        #Criar a tela de titulo.
+        #Abstrair a classe jogo.
+        #Finalizar o controlador de telas.
+            #Limpar telas.
+            #Acquisição de informações sobre as telas.
+            #Capacidade de alterar ordem.
+        #Implementar fontes eficientes.
+            #Font
+                #-GetTextSize(text)
+                #-Load(file,ptsize,firstCharacter,lastCharacter)
+                #-Destroy(font)
+                #-GetLineHeight()
+                #-GetGlyph(character)
+                #-Render(text,position,color)
+Em Andamento:
+    -Alpha:
+    -Beta:
+        -Melhorar renderizacao de texto.
+        -Adicionar marcador de highscore.
+        -Criar controle de configuracoes.
+        -Criar a tela de configuracoes.
+        -Implementar fontes eficientes.
+            -Font
+                -Create(texture,glyphWidth,glyphHeight,lineHeight,firstCharacter,lastCharacter)
+        -Separar os projetos do paraBall e da Engine.
