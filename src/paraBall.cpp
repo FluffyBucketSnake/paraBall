@@ -25,15 +25,50 @@ void paraBall::Load()
     Keyboard_Init();
     //Carregar efeitos sonoros.
     SFX_CURSORMOVE = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/cursormove.wav").c_str());
+    if (SFX_CURSORMOVE == NULL)
+    {
+        std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     SFX_SELECT = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/select.wav").c_str());
+    if (SFX_SELECT == NULL)
+    {
+        std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     SFX_COLLISION = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/collision.wav").c_str());
+    if (SFX_COLLISION== NULL)
+    {
+        std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     SFX_DEATH = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/death.wav").c_str());
+    if (SFX_DEATH == NULL)
+    {
+        std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     SFX_POINT = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/point.wav").c_str());
+    if (SFX_POINT == NULL)
+    {
+        std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     //Carregar fontes.
     FONT_NORMAL = Font::LoadFont(Renderer,(std::string(SDL_GetBasePath()) + 
     "/gfx/prstartk.ttf").c_str(),8);
+    if (FONT_NORMAL == NULL)
+    {
+        std::cerr << "[ERROR]Font Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
     FONT_TITLE = Font::LoadFont(Renderer,(std::string(SDL_GetBasePath()) + 
     "/gfx/prstartk.ttf").c_str(),24);
+    if (FONT_TITLE == NULL)
+    {
+        std::cerr << "[ERROR]Font Loading: " << SDL_GetError() << std::endl;
+        Running = false; 
+    }
 }
 
 void paraBall::Update(int delta)
