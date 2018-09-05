@@ -26,17 +26,12 @@ void TitleScreen::Render(SDL_Renderer *renderer, int delta)
     //Calcular o cosseno e guardar.
     float ccos = 0;//std::cos(SDL_GetTicks()/200.0f);
     //Renderizar titulo.
-    SDL_Point origin = FONT_TITLE->GetTextSize(TITLE);
-    origin.x /= 2;
-    origin.y /= 2;
-    FONT_TITLE->Render(renderer,TITLE,{SCREENWIDTH/2,64},COLR_WHITE,FVec2(1),origin,3.25f*ccos);
+    Font::Render(renderer,FONT_TITLE,TITLE,{SCREENWIDTH/2,64},COLR_WHITE,FVec2(1),FA_Center,
+    3.25f*ccos);
     //Renderizar comando.
-    origin = FONT_NORMAL->GetTextSize("Press space to start.");
-    origin.x /= 2;
-    origin.y /= 2;
-    FVec2 size;
-    FONT_NORMAL->Render(renderer,"Press <space> to start",{SCREENWIDTH/2,SCREENHEIGHT-64},COLR_WHITE,FVec2(1),origin,-ccos);
+    Font::Render(renderer,FONT_NORMAL,"Press <space> to start",{SCREENWIDTH/2,SCREENHEIGHT-64},
+    COLR_WHITE,FVec2(1),FA_Center,-ccos);
     //Versao.
-    origin = FONT_NORMAL->GetTextSize("v." + std::string(VERSION));
-    FONT_NORMAL->Render(renderer,"v." + std::string(VERSION),{SCREENWIDTH-origin.x,SCREENHEIGHT-origin.y},COLR_WHITE);
+    Font::Render(renderer,FONT_NORMAL,"v." + std::string(VERSION),
+    {SCREENWIDTH,SCREENHEIGHT},COLR_WHITE,FVec2(1),FA_BottomRight,0);
 }

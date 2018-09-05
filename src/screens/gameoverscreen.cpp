@@ -59,43 +59,31 @@ void GameOverScreen::Update(int delta)
 
 void GameOverScreen::Render(SDL_Renderer *renderer, int delta)
 {
-    //Calcular o cosseno e guardar.
-    int selAlpha = 60 - 30*std::cos(SDL_GetTicks()/200.0f);
     //Desenhar um overlay transparente sobre as telas.
     SDL_SetRenderDrawColor(renderer,0,0,0,235);
     SDL_Rect screenBounds = {0,0,SCREENWIDTH,SCREENHEIGHT};
     SDL_RenderFillRect(renderer,&screenBounds);
     //GAME OVER
-    SDL_Point origin = FONT_TITLE->GetTextSize("GAME OVER");
-    origin.x /= 2;
-    origin.y /= 2;
-    FONT_TITLE->Render(renderer,"GAME OVER",{SCREENWIDTH/2,64},COLR_WHITE,FVec2(1),origin,0);
+    Font::Render(renderer, FONT_TITLE,"GAME OVER",{SCREENWIDTH/2,64},COLR_WHITE,FVec2(1),FA_Center,
+    0);
     //Pontuacao.
-    std::string scoreText = "Score: " + std::to_string(((LevelScreen*)SCREENMANAGER.GetScreen(LEVELSCREEN))->Points);
-    origin = FONT_NORMAL->GetTextSize(scoreText);
-    origin.x /= 2;
-    origin.y /= 2;
-    FONT_NORMAL->Render(renderer,scoreText,{SCREENWIDTH/2,SCREENHEIGHT/2},COLR_WHITE,FVec2(1.25f),origin,0);
-    //Tentar novamente.
-    origin = FONT_NORMAL->GetTextSize("Try again");
-    origin.x /= 2;
-    origin.y /= 2;
-    if (_current == 0)
+    Font::Render(renderer,FONT_NORMAL,"Score: "+
+    std::to_string(((LevelScreen*)SCREENMANAGER.GetScreen(LEVELSCREEN))->Points),
+    {SCREENWIDTH/2,SCREENHEIGHT/2},COLR_WHITE,FVec2(1.25),FA_Center,0);
+    //Opcoes,
+    switch(_current)
     {
-        SDL_Rect rect = {SCREENWIDTH/2-origin.x,SCREENHEIGHT-OPTIONY[0]-origin.y-1,origin.x*2+2,origin.y*2+2};
-        SDL_SetRenderDrawColor(renderer,255,255,255,selAlpha);
-        SDL_RenderFillRect(renderer,&rect);
+        case 0:
+        Font::Render(renderer,FONT_NORMAL,"> Try again.", {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[0]},
+        COLR_WHITE,FVec2(1),FA_Center,0);
+        Font::Render(renderer,FONT_NORMAL,"Return to title.", {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[1]},
+        COLR_WHITE,FVec2(1),FA_Center,0); 
+        break;
+        case 1:
+        Font::Render(renderer,FONT_NORMAL,"Try again.", {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[0]},
+        COLR_WHITE,FVec2(1),FA_Center,0);
+        Font::Render(renderer,FONT_NORMAL,"> Return to title.", {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[1]},
+        COLR_WHITE,FVec2(1),FA_Center,0); 
+        break;
     }
-    FONT_NORMAL->Render(renderer,"Try again",{SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[0]},COLR_WHITE,FVec2(1),origin,0);
-    //Sair.
-    origin = FONT_NORMAL->GetTextSize("Exit to title");
-    origin.x /= 2;
-    origin.y /= 2;
-    if (_current == 1)
-    {
-        SDL_Rect rect = {SCREENWIDTH/2-origin.x-1,SCREENHEIGHT-OPTIONY[1]-origin.y-1,origin.x*2+3,origin.y*2+2};
-        SDL_SetRenderDrawColor(renderer,255,255,255,selAlpha);
-        SDL_RenderFillRect(renderer,&rect);
-    }
-    FONT_NORMAL->Render(renderer,"Exit to title",{SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[1]},COLR_WHITE,FVec2(1),origin,0);
 }

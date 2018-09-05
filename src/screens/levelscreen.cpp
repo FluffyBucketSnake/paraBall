@@ -123,5 +123,5 @@ void LevelScreen::Render(SDL_Renderer* renderer, int delta)
     player.Render(renderer,delta);
     ball.Render(renderer,delta);
     //Apresentar texto.
-    FONT_NORMAL->Render(renderer,std::to_string(Points),{8,8},COLR_WHITE,FVec2(1.5f),{0,0},0);
+    Font::Render(renderer,FONT_NORMAL,std::to_string(Points),{8,8},COLR_WHITE,FVec2(1.5f),FA_TopLeft,0);
 }

@@ -3,7 +3,7 @@ COMPILER=g++
 SRCDIR=src
 OBJDIR=obj
 CFLAG=-I$(SRCDIR) -I.
-OUTPUT=bin/game
+OUTPUT=bin/game.out
 LIBRARIES=-lSDL2 -lSDL2_mixer -lSDL2_ttf
 
 HEADERS= \
@@ -43,11 +43,12 @@ game: $(OBJECTS)
 
 all: game
 
-run: ./bin/game
+run: 
+	./$(OUTPUT)
 
 debug: game
-	./bin/game
+	./$(OUTPUT)
 
 clean:
-	rm -R obj; \
-	mkdir obj obj/entities obj/screens obj/graphics
+	rm -R $(OBJDIR); \
+	mkdir $(OBJDIR) $(OBJDIR)/entities $(OBJDIR)/screens $(OBJDIR)/graphics
