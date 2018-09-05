@@ -4,7 +4,8 @@
 This was an attempt to familiarize myself with C++ and, specially, SDL2.
 
 Dependencies:
-* SDL2(Obviously)
+* GCC 8.1.1 or up
+* SDL2
 
 _NOTE: Most comments are written in Portuguese._
 
@@ -13,4 +14,5 @@ _NOTE: Most comments are written in Portuguese._
 Esta foi um tentativa de me familiarizar com C++ e, especialmente, SDL2.
 
 Dependências:
-* SDL2(Obviamente)
+* GCC 8.1.1 ou mais
+* SDL2
