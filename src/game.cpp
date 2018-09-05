@@ -8,7 +8,7 @@ bool Game::PreInit()
     //Inicializar subsistemas do SDL2.
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
-        std::cerr << "[ERROR]" << "SDL_Init" << ": " << SDL_GetError() << std::endl;
+        std::cerr << "[ERROR]SDL_Init: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
@@ -17,7 +17,7 @@ bool Game::PreInit()
     SDL_WINDOW_SHOWN);
     if (Window == NULL)
     {
-        std::cerr << "[ERROR]" << "SDL_CreateWindow" << ": " << SDL_GetError() << std::endl;
+        std::cerr << "[ERROR]SDL_CreateWindow: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
@@ -25,7 +25,7 @@ bool Game::PreInit()
     Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
     if (Renderer == NULL)
     {
-        std::cerr << "[ERROR]" << "SDL_CreateRenderer" << ": " << SDL_GetError() << std::endl;
+        std::cerr << "[ERROR]SDL_CreateRenderer: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
@@ -33,14 +33,14 @@ bool Game::PreInit()
     //Inicializar SDL_mixer
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,4096) != 0)
     {
-        std::cerr << "[ERROR]" << "Mix_OpenAudio" << ": " << SDL_GetError() << std::endl;
+        std::cerr << "[ERROR]Mix_OpenAudio: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
     //Inicializar TTF.
     if (TTF_Init() != 0)
     {
-        std::cerr << "[ERROR]" << "TTF_Init" << ": " << SDL_GetError() << std::endl;
+        std::cerr << "[ERROR]TTF_Init: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
@@ -111,9 +111,10 @@ int Game::Run()
     //Chamar a funcao de preinicializacao. Se falhar, retornar -1.
     if (!PreInit())
         return -1;
-    Init();
     //Definir a bandeira de rodar.
     Running = true;
+    //Chamar funcao de inicializacao das classes filhas.
+    Init();
     //Loopar o jogo enquanto a bandeira 'running' é vetor.
     while(Running)
         Loop();
