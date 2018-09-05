@@ -1,7 +1,4 @@
-#Macros.
-COMMA := ,
-NULL :=
-SPACE := $(NULL) #
+.PHONY: outputdir
 #Directory definitions.
 SRCDIR := src
 OBJDIR := obj
@@ -44,28 +41,30 @@ paraBall.cpp \
 main.cpp
 RESOURCES := sfx/collision.wav sfx/cursormove.wav sfx/death.wav sfx/point.wav sfx/select.wav \
 gfx/prstartk.ttf
-
+#Objects Directory
+objdir:
+	if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
+#Output Directory
 outputdir:
 	if [ ! -d $(OUTDIR) ]; then mkdir $(OUTDIR); fi
-
-$(addprefix $(OUTDIR)/,$(RESOURCES)): $(OUTDIR)/%: $(RESDIR)/%
+#Copying resources
+$(addprefix $(OUTDIR)/,$(RESOURCES)): $(OUTDIR)/%: $(RESDIR)/% outputdir
 	if [ ! -d $(dir $@) ]; then mkdir $(dir $@); fi
 	cp $< $@
-
-game: $(addprefix $(OBJDIR)/,$(CLASSES:.cpp=.o))
-	$(COMPILER) -o $(OUTDIR)/$(EXEC) $^ $(LIBRARIES)
-
+#Main executable
+game: $(addprefix $(OBJDIR)/,$(CLASSES:.cpp=.o)) outputdir
+	$(COMPILER) -o $(OUTDIR)/$(EXEC) $(filter-out outputdir,$^) $(LIBRARIES)
+#Class compilation
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(COMPILER) -c -o $@ $< $(CFLAG)
-
+#Resource and app packaging
 all: $(addprefix $(OUTDIR)/,$(RESOURCES)) game
-
+#Exectuting the application
 run: 
 	./$(OUTDIR)/$(EXEC)
-
+#Packing and executing
 debug: all run
-
+#Clean all outputs
 clean:
 	if [ -d $(OBJDIR) ]; then rm -R $(OBJDIR); fi
 	if [ -d $(OUTDIR) ]; then rm -R $(OUTDIR); fi
-	mkdir $(OUTDIR) $(OBJDIR) $(OBJDIR)/entities $(OBJDIR)/screens $(OBJDIR)/graphics
