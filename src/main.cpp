@@ -135,13 +135,12 @@ int main(int argc, char* args[])
     //paraBall --weight 360 --height 240 --fps 60
     paraBall game;
     //Open config.
-    DataFile data;
-    data.Open(SDL_GetBasePath() + std::string("data"));
-    data.Load();
+    DATAFILE.Open(SDL_GetBasePath() + std::string("data"));
+    DATAFILE.Load();
     //Create ConfigTracker.
     CONFIGTRACKER.Init((Game*)&game);
     //Load config.
-    CONFIGTRACKER.LoadConfig(data);
+    CONFIGTRACKER.LoadConfig(DATAFILE);
     //Load setting arguments. If it returns 1, the application must run. If it return 0, the application must not run(Parse Error/Help).
     if (LoadArguments(argc,args))
         return game.Run();

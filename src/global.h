@@ -3,6 +3,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <graphics/font.h>
 #include <screens/screenmanager.h>
+#include <data.h>
 #include <config.h>
 
 extern const char* TITLE;
@@ -19,6 +20,7 @@ extern Mix_Chunk* SFX_DEATH;
 extern Font* FONT_NORMAL;
 extern Font* FONT_TITLE;
 
+extern DataFile DATAFILE;
 extern ScreenManager SCREENMANAGER;
 extern ConfigTracker CONFIGTRACKER;
 

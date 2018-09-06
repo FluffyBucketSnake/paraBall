@@ -12,6 +12,7 @@ Mix_Chunk* SFX_COLLISION;
 Font* FONT_NORMAL;
 Font* FONT_TITLE;
 
+DataFile DATAFILE;
 ScreenManager SCREENMANAGER;
 ConfigTracker CONFIGTRACKER;
 
