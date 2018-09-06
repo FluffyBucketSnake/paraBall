@@ -18,7 +18,10 @@ graphics/colors.h \
 graphics/font.h \
 screens/screen.h \
 screens/screenmanager.h \
-game.h src/global.h \
+game.h \
+data.h \
+config.h \
+global.h \
 screens/titlescreen.h \
 entities/entity.h \
 entities/ball.h \
@@ -31,6 +34,8 @@ keyboard.cpp \
 graphics/font.cpp \
 screens/screenmanager.cpp \
 game.cpp \
+data.cpp \
+config.cpp \
 global.cpp \
 screens/titlescreen.cpp \
 entities/player.cpp \
@@ -55,7 +60,7 @@ $(addprefix $(OUTDIR)/,$(RESOURCES)): $(OUTDIR)/%: $(RESDIR)/% outputdir
 game: $(addprefix $(OBJDIR)/,$(CLASSES:.cpp=.o)) outputdir
 	$(COMPILER) -o $(OUTDIR)/$(EXEC) $(filter-out outputdir,$^) $(LIBRARIES)
 #Class compilation
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(addprefix $(SRCDIR)/,$(HEADERS))
 	$(COMPILER) -c -o $@ $< $(CFLAG)
 #Resource and app packaging
 all: $(addprefix $(OUTDIR)/,$(RESOURCES)) game
