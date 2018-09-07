@@ -21,6 +21,7 @@ bool Game::PreInit()
         Dispose();
         return false;
     }
+    SDL_SetWindowFullscreen(Window,_flags);
     //Criar renderizador.
     Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
     if (Renderer == NULL)
@@ -37,6 +38,7 @@ bool Game::PreInit()
         Dispose();
         return false;
     }
+    Mix_Volume(-1,masterVolume);
     //Inicializar TTF.
     if (TTF_Init() != 0)
     {
@@ -74,10 +76,10 @@ void Game::Loop()
     currentTime = SDL_GetTicks();
     deltaTime = currentTime - lastTime;
     //Limitar os FPS.
-    if (FPS != 0 && deltaTime < 1000/FPS)
+    if (MaxFPS != 0 && deltaTime < 1000/MaxFPS)
     {
         //Nao se passou tempo suficiente.
-        SDL_Delay(1000/FPS - deltaTime);
+        SDL_Delay(1000/MaxFPS - deltaTime);
         //Redefinir o tempo.
         currentTime = SDL_GetTicks();
         deltaTime = currentTime - lastTime;
@@ -124,6 +126,11 @@ int Game::Run()
     return 0;
 }
 
+const char* Game::GetWindowTitle() const
+{
+    return title;
+}
+
 void Game::SetWindowTitle(const char* newtitle)
 {
     //Trocar o ponteiro.
@@ -133,17 +140,12 @@ void Game::SetWindowTitle(const char* newtitle)
         SDL_SetWindowTitle(Window,title);
 }
 
-const char* Game::GetWindowTitle()
-{
-    return title;
-}
-
-SDL_Point Game::GetWindowSize()
+SDL_Point Game::GetWindowSize() const
 {
     return {windowWidth,windowHeight};
 }
 
-void Game::SetWindowSize(int newWidth, int newHeight)
+void Game::SetWindowSize(const int newWidth, const int newHeight)
 {
     //Guardar os novos valores.
     windowWidth = newWidth;
@@ -151,4 +153,29 @@ void Game::SetWindowSize(int newWidth, int newHeight)
     //Se a janela ja foi criada, redefinir seu tamanho.
     if (Window != NULL)
         SDL_SetWindowSize(Window,windowWidth,windowHeight);
+}
+
+Uint32 Game::GetWindowFlags() const
+{
+    return _flags;
+}
+
+void Game::SetWindowFlags(const Uint32 flags)
+{
+    //Save the newly defined flags.
+    _flags = flags;
+    //Check if the window already exists, if so, and set their flag.
+    if (Window != NULL)
+        SDL_SetWindowFullscreen(Window,_flags);
+}
+
+int Game::GetMasterVolume() const
+{
+    return masterVolume;
+}
+
+void Game::SetMasterVolume(const int volume)
+{
+    masterVolume = volume;
+    Mix_Volume(-1,volume);
 }

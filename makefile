@@ -11,36 +11,10 @@ CFLAG := -I$(SRCDIR)
 EXEC:= game.out
 LIBRARIES := -lSDL2 -lSDL2_mixer -lSDL2_ttf
 #Resources.
-HEADERS := \
-fvec2.h \
-keyboard.h \
-graphics/colors.h \
-graphics/font.h \
-screens/screen.h \
-screens/screenmanager.h \
-game.h src/global.h \
-screens/titlescreen.h \
-entities/entity.h \
-entities/ball.h \
-entities/player.h \
-screens/levelscreen.h \
-screens/gameoverscreen.h \
-paraBall.h
-CLASSES := \
-keyboard.cpp \
-graphics/font.cpp \
-screens/screenmanager.cpp \
-game.cpp \
-global.cpp \
-screens/titlescreen.cpp \
-entities/player.cpp \
-entities/ball.cpp \
-screens/levelscreen.cpp \
-screens/gameoverscreen.cpp \
-paraBall.cpp \
-main.cpp
-RESOURCES := sfx/collision.wav sfx/cursormove.wav sfx/death.wav sfx/point.wav sfx/select.wav \
-gfx/prstartk.ttf
+HEADERS := $(wildcard $(SRCDIR)/*.h) $(wildcard $(SRCDIR)/**/*.h)
+CLASSES := $(wildcard $(SRCDIR)/*.cpp) $(wildcard $(SRCDIR)/**/*.cpp)
+OBJECTS := $(CLASSES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+RESOURCES := $(wildcard $(RESDIR)/*.*) $(wildcard $(RESDIR)/**/*.*)
 #Objects Directory
 objdir:
 	if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
@@ -48,17 +22,17 @@ objdir:
 outputdir:
 	if [ ! -d $(OUTDIR) ]; then mkdir $(OUTDIR); fi
 #Copying resources
-$(addprefix $(OUTDIR)/,$(RESOURCES)): $(OUTDIR)/%: $(RESDIR)/% outputdir
+$(RESOURCES:$(RESDIR)/%=$(OUTDIR)/%): $(OUTDIR)/%: $(RESDIR)/% outputdir
 	if [ ! -d $(dir $@) ]; then mkdir $(dir $@); fi
 	cp $< $@
 #Main executable
-game: $(addprefix $(OBJDIR)/,$(CLASSES:.cpp=.o)) outputdir
-	$(COMPILER) -o $(OUTDIR)/$(EXEC) $(filter-out outputdir,$^) $(LIBRARIES)
+game: $(OBJECTS) outputdir
+	$(COMPILER) -o $(OUTDIR)/$(EXEC) $(OBJECTS) $(LIBRARIES)
 #Class compilation
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(HEADERS)
 	$(COMPILER) -c -o $@ $< $(CFLAG)
 #Resource and app packaging
-all: $(addprefix $(OUTDIR)/,$(RESOURCES)) game
+all: $(RESOURCES:$(RESDIR)/%=$(OUTDIR)/%) game
 #Exectuting the application
 run: 
 	./$(OUTDIR)/$(EXEC)

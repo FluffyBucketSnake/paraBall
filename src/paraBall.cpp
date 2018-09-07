@@ -105,4 +105,6 @@ void paraBall::Unload()
     Font::DestroyFont(FONT_TITLE);
     //Liberar controles.
     Keyboard_Quit();
+    //Liberar dados.
+    DATAFILE.Close();
 }
