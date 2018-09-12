@@ -5,7 +5,7 @@
 #include <screens/levelscreen.h>
 #include <interface/button.h>
 
-GameOverScreen::GameOverScreen()
+void GameOverScreen::Init()
 {
     //Try again.
     UIButton *button = new UIButton;
@@ -25,10 +25,18 @@ GameOverScreen::GameOverScreen()
     menu.AddChild(button);
 }
 
+void GameOverScreen::Unload()
+{
+    menu.ClearChildren();
+}
+
+void GameOverScreen::Resume() 
+{
+    menu.SetFocus(0);
+}
+
 void GameOverScreen::Restart()
 {
-    //Resetar tela de jogo.
-    ((LevelScreen*)SCREENMANAGER.GetScreen(LEVELSCREEN))->Reset();
     //Parar esta tela.
     SCREENMANAGER.ToggleUpdate(GAMEOVERSCREEN,false);
     SCREENMANAGER.ToggleRender(GAMEOVERSCREEN,false);
@@ -38,8 +46,6 @@ void GameOverScreen::Restart()
 
 void GameOverScreen::GotoTitle()
 {
-    //Resetar tela de jogo.
-    ((LevelScreen*)SCREENMANAGER.GetScreen(LEVELSCREEN))->Reset();
     //Parar esta tela.
     SCREENMANAGER.ToggleUpdate(GAMEOVERSCREEN,false);
     SCREENMANAGER.ToggleRender(GAMEOVERSCREEN,false);

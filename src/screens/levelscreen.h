@@ -15,8 +15,8 @@ class LevelScreen : public Screen
     public:
         int Points;
 
-        LevelScreen();
-        
+        void Init();
+        void Resume();
         void Point();   //Cuida da vitoria.
         void Lose();    //Cuida da derrota.
         void Reset();

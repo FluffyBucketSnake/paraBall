@@ -32,6 +32,8 @@ int ScreenManager::AddScreen(Screen *screen, int priority, int depth, bool enabl
         _enabled.insert({id,priority});
     if (visible)
         _visible.insert({id,depth});
+    //Rodar a tela.
+    screen->Init();
     //Retornar chave.
     return id;
 }
@@ -41,6 +43,10 @@ void ScreenManager::RemoveScreen(int id)
     //Checar se a tela eh valida.
     if (id >= _screens.size() || id < 0)
         return;
+    //Descarregar tela.
+    _screens[id]->Unload();
+    //Liberar memoria ocupada.
+    delete _screens[id];
     //Remover a tela das listas.
     _enabled.erase({id,_metadata[id].Priority});
     _visible.erase({id,_metadata[id].Depth});
@@ -64,14 +70,9 @@ bool ScreenManager::ContainsScreen(Screen* screen)
 
 void ScreenManager::ClearScreens()
 {
-    //Liberar todas as telas da memoria.
-    for(auto it = _screens.begin(); it != _screens.end(); it++)
-        delete *it;
-    //Limpar todas as listas.
-    _screens.clear();
-    _metadata.clear();
-    _enabled.clear();
-    _visible.clear();
+    //Remove each screen from the list, starting from the first.
+    while (!_screens.empty())
+        RemoveScreen(0);
 }
 
 Screen *ScreenManager::GetScreen(int id)
@@ -85,7 +86,6 @@ Screen *ScreenManager::GetScreen(int id)
 
 void ScreenManager::SetScreen(int id, Screen *screen)
 {
-
     //Checar se a tela eh valida.
     if (id >= _screens.size() || id < 0)
         return;
@@ -105,9 +105,15 @@ void ScreenManager::ToggleUpdate(int id, bool state)
     {
         //Verificar se a tela deve ser adicionada ou removida.
         if (state)
+        {
+            _screens[id]->Resume();
             _enabled.insert({id,_metadata[id].Priority});
+        }
         else
+        {
+            _screens[id]->Pause();
             _enabled.erase({id,_metadata[id].Priority});
+        }
     }
 }
 
@@ -123,9 +129,15 @@ void ScreenManager::ToggleRender(int id, bool state)
     {
         //Verificar se a tela deve ser adicionada ou removida.
         if (state)
+        {
+            _screens[id]->Show();
             _visible.insert({id,_metadata[id].Depth});
+        }
         else
+        {
+            _screens[id]->Hide();
             _visible.erase({id,_metadata[id].Depth});
+        }
     }
 }
 

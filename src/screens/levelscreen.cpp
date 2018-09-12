@@ -2,7 +2,13 @@
 #include <graphics/colors.h>
 #include <global.h>
 
-LevelScreen::LevelScreen()
+void LevelScreen::Init()
+{
+    //Definir posicoes iniciais.
+    Reset();
+}
+
+void LevelScreen::Resume()
 {
     //Definir posicoes iniciais.
     Reset();

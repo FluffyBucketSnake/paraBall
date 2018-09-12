@@ -3,6 +3,26 @@
 #include <graphics/colors.h>
 #include <global.h>
 
+void TitleScreen::Init()
+{
+
+}
+
+void TitleScreen::Unload()
+{
+
+}
+
+void TitleScreen::Resume()
+{
+
+}
+
+void TitleScreen::Pause()
+{
+    
+}
+
 void TitleScreen::Update(int delta)
 {
     if (Keyboard_Pressed(SDL_SCANCODE_SPACE))

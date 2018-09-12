@@ -11,7 +11,9 @@ class GameOverScreen : public Screen
         static void Restart();
         static void GotoTitle();
     public:
-        GameOverScreen();
+        void Init();
+        void Unload();
+        void Resume();
         void Update(int delta);
         void Render(SDL_Renderer* renderer, int delta);
 };

@@ -1,8 +1,10 @@
 #pragma once
 #include <screens/screen.h>
 
-class TitleScreen : public Screen
+class OptionsScreen : public Screen
 {
+    private:
+
     public:
         void Init();
         void Unload();
