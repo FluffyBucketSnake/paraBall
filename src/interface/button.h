@@ -11,8 +11,8 @@ class UIButton : public UIControl
     SDL_Color NormalColor = {100,100,100,255};
     SDL_Color FocusedColor = {175,175,175,255};
     SDL_Color PressedColor = {255,255,255,255};
-    FontAlign Align = FA_TopLeft;
     float Scale = 1;
+    int Margin = 0;
 
     void (*Event_Pressed)() = NULL;
 

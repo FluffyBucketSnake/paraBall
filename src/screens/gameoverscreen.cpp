@@ -7,22 +7,22 @@
 
 void GameOverScreen::Init()
 {
+    //Menu.
+    menu.Position = {(SCREENWIDTH/2)-48,SCREENHEIGHT-64};
     //Try again.
-    UIButton *button = new UIButton;
-    button->Text = "Try again.";
-    button->FontStyle = FONT_NORMAL;
-    button->Position = {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[0]};
-    button->Align = FA_Center;
-    button->Event_Pressed = &Restart;
-    menu.AddChild(button);
+    UIButton *tryAgainBtn = new UIButton;
+    tryAgainBtn->Text = "Try again.";
+    tryAgainBtn->Margin = 2;
+    tryAgainBtn->FontStyle = FONT_NORMAL;
+    tryAgainBtn->Event_Pressed = &Restart;
+    menu.AddChild(tryAgainBtn);
     //Go to  title.
-    button = new UIButton;
-    button->Text = "Go to title.";
-    button->FontStyle = FONT_NORMAL;
-    button->Position = {SCREENWIDTH/2,SCREENHEIGHT-OPTIONY[1]};
-    button->Align = FA_Center;
-    button->Event_Pressed = &GotoTitle;
-    menu.AddChild(button);
+    UIButton *goToTitleBtn = new UIButton;
+    goToTitleBtn->Text = "Go to title.";
+    goToTitleBtn->Margin = 2;
+    goToTitleBtn->FontStyle = FONT_NORMAL;
+    goToTitleBtn->Event_Pressed = &GotoTitle;
+    menu.AddChild(goToTitleBtn);
 }
 
 void GameOverScreen::Unload()

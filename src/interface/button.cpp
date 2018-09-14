@@ -5,7 +5,8 @@
 
 SDL_Point UIButton::GetSize() const
 {
-    return FontStyle->GetTextSize(Text);
+    SDL_Point textSize = FontStyle->GetTextSize(Text);
+    return {textSize.x + 2*Margin, textSize.y + 2*Margin};
 }
 
 void UIButton::Update(int delta)
@@ -19,12 +20,6 @@ void UIButton::Update(int delta)
 
 void UIButton::Render(SDL_Renderer *renderer, int delta)
 {
-    //Calculate actual position.
-    SDL_Point actualPosition;
-    if (Parent != NULL)
-        actualPosition = {Position.x + Parent->Position.x,Position.y + Parent->Position.y};
-    else
-        actualPosition = {Position.x, Position.y};
     //Calculate the color.
     SDL_Color color = NormalColor;
     if (IsFocused)
@@ -35,5 +30,6 @@ void UIButton::Render(SDL_Renderer *renderer, int delta)
             color = FocusedColor;
     }
     //Render the result text.
-    Font::Render(renderer,FontStyle,Text,actualPosition,color,Scale,Align,0);
+    SDL_Point actualPos = GetActualPosition();
+    Font::Render(renderer,FontStyle,Text,{actualPos.x + Margin, actualPos.y + Margin},color,Scale,FA_TopLeft,0);
 }

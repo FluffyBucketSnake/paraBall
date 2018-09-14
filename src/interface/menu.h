@@ -6,9 +6,10 @@ class UIControl;
 class UIMenu
 {
     private:
-        int _current = 0;
+        //Main container.
         std::vector<UIControl*> _children;
-
+        //Input and control releated stuff.
+        int _current = 0;
         int pressedTime = 0;
         bool repeatFlag = false;
         char direction = 0;
@@ -19,8 +20,11 @@ class UIMenu
         void MoveCursor();
         void HandleRepeat(int delta);
         void HandleInput();
+        //Layout related stuff.
+        void HandleLayout();
     public:
         SDL_Point Position = {0,0};
+        SDL_Rect Size = {128,128};
 
         int GetCount() const;
         void AddChild(UIControl *child);

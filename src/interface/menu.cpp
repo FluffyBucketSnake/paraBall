@@ -118,6 +118,21 @@ void UIMenu::HandleRepeat(int delta)
     }
 }
 
+void UIMenu::HandleLayout()
+{
+    //Initialize accumulator variables.
+    int curY = 0;
+    //Iterate over every control, in order.
+    for (int i = 0; i < _children.size(); i++)
+    {
+        //Define the layout position of the control.
+        _children[i]->_layoutPosition.x = Position.x;
+        _children[i]->_layoutPosition.y = Position.y + curY;
+        //Increase the accumulator value.
+        curY += _children[i]->GetSize().y;
+    }
+}
+
 void UIMenu::Update(int delta)
 {
     //Handle input.
@@ -127,6 +142,8 @@ void UIMenu::Update(int delta)
     //Update every control.
     for(auto it = _children.begin(); it != _children.end(); it++)
         (*it)->Update(delta);
+    //Update the layout.
+    HandleLayout();
 }
 
 void UIMenu::Render(SDL_Renderer *renderer, int delta)
