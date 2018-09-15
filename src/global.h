@@ -6,6 +6,9 @@
 #include <data.h>
 #include <config.h>
 
+class paraBall;
+extern paraBall* GAME;
+
 extern const char* TITLE;
 extern const char* VERSION;
 const int SCREENWIDTH = 320;
@@ -27,3 +30,4 @@ extern ConfigTracker CONFIGTRACKER;
 extern int TITLESCREEN;
 extern int LEVELSCREEN;
 extern int GAMEOVERSCREEN;
+extern int OPTIONSSCREEN;

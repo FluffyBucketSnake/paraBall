@@ -4,6 +4,7 @@
 #include <screens/titlescreen.h>
 #include <screens/levelscreen.h>
 #include <screens/gameoverscreen.h>
+#include <screens/optionsscreen.h>
 #include <iostream>
 
 void paraBall::Init()
@@ -13,9 +14,10 @@ void paraBall::Init()
     //Definir semente.
     std::srand(time(NULL));
     //Criar telas.
-    TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen,-2,-2,true,true);
+    TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen,-3,-3,true,true);
     LEVELSCREEN = SCREENMANAGER.AddScreen(new LevelScreen,0,0,false,true);
     GAMEOVERSCREEN = SCREENMANAGER.AddScreen(new GameOverScreen,-1,-1,false,false);
+    OPTIONSSCREEN = SCREENMANAGER.AddScreen(new OptionsScreen,-2,-2,false,false);
     std::cout << "Finished creating screens" << '\n';
 }
 

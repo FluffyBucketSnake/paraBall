@@ -134,6 +134,7 @@ int main(int argc, char* args[])
 {
     //paraBall --weight 360 --height 240 --fps 60
     paraBall game;
+    GAME = &game;
     //Open config.
     DATAFILE.Open(SDL_GetBasePath() + std::string("data"));
     DATAFILE.Load();

@@ -1,5 +1,7 @@
 #include <global.h>
 
+paraBall* GAME = NULL;
+
 const char* TITLE = "paraBall";
 const char* VERSION = "Alpha";
 
@@ -19,3 +21,4 @@ ConfigTracker CONFIGTRACKER;
 int TITLESCREEN;
 int LEVELSCREEN;
 int GAMEOVERSCREEN;
+int OPTIONSSCREEN;
