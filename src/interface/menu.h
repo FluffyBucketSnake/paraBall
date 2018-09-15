@@ -8,11 +8,12 @@ class UIMenu
     private:
         //Main container.
         std::vector<UIControl*> _children;
-        //Input and control releated stuff.
         int _current = 0;
+        //Input and control releated stuff.
         int pressedTime = 0;
         bool repeatFlag = false;
         char direction = 0;
+        bool _isLocked = false;
 
         const int REPEATSTART = 150;
         const int REPEATINTERVAL = 75;
@@ -30,8 +31,12 @@ class UIMenu
         void AddChild(UIControl *child);
         void RemoveChild(int index); 
         void ClearChildren();
+
         void SetFocus(int index);
         int GetFocus() const;
+        void Lock();
+        void Unlock();
+
         void Update(int delta);
         void Render(SDL_Renderer *renderer, int delta);
 };

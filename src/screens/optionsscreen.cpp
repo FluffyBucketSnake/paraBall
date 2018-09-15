@@ -1,5 +1,5 @@
 #include <screens/optionsscreen.h>
-#include <interface/button.h>
+#include <interface/listbutton.h>
 #include <global.h>
 #include <graphics/colors.h>
 
@@ -22,6 +22,30 @@ void OptionsScreen::Init()
 {
     //Menu.
     menu.Position = {96,32};
+    //Window mode button.
+    UIListButton *windowModeBtn = new UIListButton;
+    windowModeBtn->Label = "Window Mode";
+    std::string windowModeItems[] = {"Window","Wnd. Fullscr.", "Fullscreen"};
+    windowModeBtn->AddItems(windowModeItems,3);
+    windowModeBtn->FontStyle = FONT_NORMAL;
+    windowModeBtn->Margin = 2;
+    menu.AddChild(windowModeBtn);
+    //Resolution button.
+    UIListButton *resolutionBtn = new UIListButton;
+    resolutionBtn->Label = "Resolution";
+    std::string resolutionItems[] = {"320x240","640x480", "1280x960"};
+    resolutionBtn->AddItems(resolutionItems,3);
+    resolutionBtn->FontStyle = FONT_NORMAL;
+    resolutionBtn->Margin = 2;
+    menu.AddChild(resolutionBtn);
+    //Resolution button.
+    UIListButton *maxFPSBtn = new UIListButton;
+    maxFPSBtn->Label = "Max FPS";
+    std::string maxFPSItems[] = {"Uncapped","30", "60"};
+    maxFPSBtn->AddItems(maxFPSItems,3);
+    maxFPSBtn->FontStyle = FONT_NORMAL;
+    maxFPSBtn->Margin = 2;
+    menu.AddChild(maxFPSBtn);
     //Apply button.
     UIButton *applyBtn = new UIButton;
     applyBtn->Text = "Apply";

@@ -2,6 +2,7 @@
 #include <interface/control.h>
 #include <keyboard.h>
 #include <global.h>
+#include <exception>
 
 void UIMenu::AddChild(UIControl *control)
 {
@@ -17,10 +18,10 @@ void UIMenu::RemoveChild(int index)
 {
     //Check if index is valid.
     if (index < 0 || index >= GetCount())
-        return;
-    //Check if focused.
-    if (index == _current && index != 0)
-        SetFocus(index-1);
+        throw std::out_of_range("index");
+    //Check if the focus index is after the removed item.
+    if (index <= _current && index != 0)
+        SetFocus(_current-1);
     //Free memory.
     delete _children[index];
     //Remove child from list.
@@ -44,12 +45,29 @@ int UIMenu::GetFocus() const
     return _current;
 }
 
+void UIMenu::Lock()
+{
+    //Lock the menu.
+    _isLocked = true;
+    //Reset input controls.
+    pressedTime = 0;
+    repeatFlag = 0;
+    direction = 0;
+}
+
+void UIMenu::Unlock()
+{
+    _isLocked = false;
+}
+
 void UIMenu::SetFocus(int index)
 {
-    //Wrap the index if below or over the amount of controls.
-    index %= GetCount();
-    if (index < 0)
-        index = GetCount() + index;
+    //Check if the menu is locked. If it is, ignore.
+    if (_isLocked)
+        return;
+    //Check if index is valid.
+    if (index < 0 || index >= GetCount())
+        throw std::out_of_range("index");
     //Update controls.
     _children[_current]->IsFocused = false;
     _children[index]->IsFocused = true;
@@ -58,8 +76,14 @@ void UIMenu::SetFocus(int index)
 
 void UIMenu::MoveCursor()
 {
+    //Play sound.
     Mix_PlayChannel(-1,SFX_CURSORMOVE,0);
-    SetFocus(_current + direction);
+    //Wrap the new index in case of overflow.
+    int newIndex = (_current+direction)%GetCount();
+    if (newIndex < 0)
+        newIndex += GetCount();
+    //Set focus.
+    SetFocus(newIndex);
 }
 
 void UIMenu::HandleInput()
@@ -135,10 +159,14 @@ void UIMenu::HandleLayout()
 
 void UIMenu::Update(int delta)
 {
-    //Handle input.
-    HandleInput();
-    //Handle repeat.
-    HandleRepeat(delta);
+    //Check if the menu isn't locked.
+    if (!_isLocked)
+    {
+        //Handle input.
+        HandleInput();
+        //Handle repeat.
+        HandleRepeat(delta);
+    }
     //Update every control.
     for(auto it = _children.begin(); it != _children.end(); it++)
         (*it)->Update(delta);
