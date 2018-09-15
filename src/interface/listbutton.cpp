@@ -174,10 +174,20 @@ void UIListButton::Update(int delta)
 void UIListButton::Render(SDL_Renderer *renderer, int delta)
 {
     //Update the text.
-    if (_isLocked)
-        Text = Label + ": < " + GetCurrent() + " >";
+    if (Label.empty())
+    {
+        if (_isLocked)
+            Text = "< " + GetCurrent() + " >";
+        else
+            Text = GetCurrent();
+    }
     else
-        Text = Label + ": " + GetCurrent();
+    {
+        if (_isLocked)
+            Text = Label + ": < " + GetCurrent() + " >";
+        else
+            Text = Label + ": " + GetCurrent();
+    }
     //Render the control.
     UIButton::Render(renderer,delta);
 }
