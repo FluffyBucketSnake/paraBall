@@ -1,6 +1,7 @@
 #pragma once
 #include <screens/screen.h>
 #include <interface/menu.h>
+#include <interface/button.h>
 
 class GameOverScreen : public Screen
 {

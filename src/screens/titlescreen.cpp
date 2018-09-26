@@ -37,21 +37,21 @@ void TitleScreen::Init()
     playBtn->Text = "Play";
     playBtn->Margin = 2;
     playBtn->FontStyle = FONT_NORMAL;
-    playBtn->Event_Pressed = &Play;
+    playBtn->ClickEvent = &Play;
     menu.AddChild(playBtn);
     //Options button.
     UIButton *optionsBtn = new UIButton;
     optionsBtn->Text = "Options";
     optionsBtn->Margin = 2;
     optionsBtn->FontStyle = FONT_NORMAL;
-    optionsBtn->Event_Pressed = &Options;
+    optionsBtn->ClickEvent = &Options;
     menu.AddChild(optionsBtn);
     //Exit button.
     UIButton *exitBtn = new UIButton;
     exitBtn->Text = "Exit";
     exitBtn->Margin = 2;
     exitBtn->FontStyle = FONT_NORMAL;
-    exitBtn->Event_Pressed = &Exit;
+    exitBtn->ClickEvent = &Exit;
     menu.AddChild(exitBtn);
 }
 

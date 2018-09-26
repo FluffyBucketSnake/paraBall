@@ -6,7 +6,7 @@
 class UIButton : public UIControl
 {
     protected:
-        virtual void OnClick();
+        virtual void OnClick() {}
     public:
         Font *FontStyle = NULL;
         std::string Text = "";
@@ -16,7 +16,7 @@ class UIButton : public UIControl
         float Scale = 1;
         int Margin = 0;
 
-        void (*Event_Pressed)() = NULL;
+        void (*ClickEvent)() = NULL;
 
         virtual SDL_Point GetSize() const;
         virtual void Update(int delta);

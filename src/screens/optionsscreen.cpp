@@ -1,5 +1,6 @@
 #include <screens/optionsscreen.h>
 #include <interface/listbutton.h>
+#include <interface/slider.h>
 #include <global.h>
 #include <graphics/colors.h>
 
@@ -46,19 +47,26 @@ void OptionsScreen::Init()
     maxFPSBtn->FontStyle = FONT_NORMAL;
     maxFPSBtn->Margin = 2;
     menu.AddChild(maxFPSBtn);
+    //Master Volume button.
+    UISlider *mstVlmBtn = new UISlider;
+    mstVlmBtn->Label = "Master Volume";
+    mstVlmBtn->SetRange(Range<int>(0,100));
+    mstVlmBtn->FontStyle = FONT_NORMAL;
+    mstVlmBtn->Margin = 2;
+    menu.AddChild(mstVlmBtn);
     //Apply button.
     UIButton *applyBtn = new UIButton;
     applyBtn->Text = "Apply";
     applyBtn->Margin = 2;
     applyBtn->FontStyle = FONT_NORMAL;
-    applyBtn->Event_Pressed = &Apply;
+    applyBtn->ClickEvent = &Apply;
     menu.AddChild(applyBtn);
     //Go Back button.
     UIButton *goBackBtn = new UIButton;
     goBackBtn->Text = "Go Back";
     goBackBtn->Margin = 2;
     goBackBtn->FontStyle = FONT_NORMAL;
-    goBackBtn->Event_Pressed = &GoBack;
+    goBackBtn->ClickEvent = &GoBack;
     menu.AddChild(goBackBtn);
 }
 

@@ -9,18 +9,15 @@ SDL_Point UIButton::GetSize() const
     return {textSize.x + 2*Margin, textSize.y + 2*Margin};
 }
 
-void UIButton::OnClick()
-{
-    Mix_PlayChannel(-1,SFX_SELECT,0);
-
-    if (Event_Pressed != NULL)
-        Event_Pressed();
-}
-
 void UIButton::Update(int delta)
 {
     if (Keyboard_Released(SDL_SCANCODE_SPACE) && IsFocused)
+    {
+        Mix_PlayChannel(-1,SFX_SELECT,0);
+        if (ClickEvent != NULL)
+            ClickEvent();
         OnClick();
+    }
 }
 
 void UIButton::Render(SDL_Renderer *renderer, int delta)

@@ -14,14 +14,14 @@ void GameOverScreen::Init()
     tryAgainBtn->Text = "Try again.";
     tryAgainBtn->Margin = 2;
     tryAgainBtn->FontStyle = FONT_NORMAL;
-    tryAgainBtn->Event_Pressed = &Restart;
+    tryAgainBtn->ClickEvent = &Restart;
     menu.AddChild(tryAgainBtn);
     //Go to  title.
     UIButton *goToTitleBtn = new UIButton;
     goToTitleBtn->Text = "Go to title.";
     goToTitleBtn->Margin = 2;
     goToTitleBtn->FontStyle = FONT_NORMAL;
-    goToTitleBtn->Event_Pressed = &GotoTitle;
+    goToTitleBtn->ClickEvent = &GotoTitle;
     menu.AddChild(goToTitleBtn);
 }
 
