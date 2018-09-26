@@ -4,9 +4,27 @@
 #include <global.h>
 #include <graphics/colors.h>
 
+int OptionsScreen::curWndMode;
+int OptionsScreen::curResolution;
+int OptionsScreen::curMaxFPS;
+int OptionsScreen::curMstVol;
+
 void OptionsScreen::Apply()
 {
-
+    //Window flags
+    if (CONFIGTRACKER.GetWindowFlags() != WINDOWMODES[curWndMode])
+        CONFIGTRACKER.SetWindowFlags(WINDOWMODES[curWndMode]);
+    //Resolution.
+    SDL_Point current = CONFIGTRACKER.GetResolution();
+    SDL_Point desired = RESOLUTIONS[curResolution];
+    if (current.x != desired.x || current.y != desired.y)
+        CONFIGTRACKER.SetResolution(desired);
+    //Max fps
+    if (CONFIGTRACKER.GetMaxFPS() != MAXFPS[curMaxFPS])
+        CONFIGTRACKER.SetMaxFPS(MAXFPS[curMaxFPS]);
+    //Master volume.
+    if (CONFIGTRACKER.GetMasterVolume() != curMstVol*255/100)
+        CONFIGTRACKER.SetMasterVolume(curMstVol);
 }
 
 void OptionsScreen::GoBack()
@@ -72,6 +90,34 @@ void OptionsScreen::Init()
 
 void OptionsScreen::Resume()
 {
+    //Load config.
+    //Window mode.
+    switch(CONFIGTRACKER.GetWindowFlags())
+    {
+        case SDL_WINDOW_FULLSCREEN_DESKTOP:
+            curResolution = 1; break;
+        case SDL_WINDOW_FULLSCREEN:
+            curResolution = 2; break;
+        default: curResolution = 0; break;
+    }
+    //Resolution.
+    SDL_Point currentRes = CONFIGTRACKER.GetResolution();
+    if (currentRes.x == 640 && currentRes.y == 480)
+        curResolution = 1;
+    else if (currentRes.x == 1280 && currentRes.y == 960)
+        curResolution = 2;
+    else
+        curResolution = 0;
+    //Max fps.
+    switch(CONFIGTRACKER.GetMaxFPS())
+    {
+        case 30: curMaxFPS = 1; break;
+        case 60: curMaxFPS = 2; break;
+        default: curMaxFPS = 0; break;
+    }
+    //Master volume.
+    curMstVol = CONFIGTRACKER.GetMasterVolume()*100/255;
+    //Reset focus.
     menu.SetFocus(0);
 }
 
@@ -82,6 +128,12 @@ void OptionsScreen::Unload()
 
 void OptionsScreen::Update(int delta)
 {
+    //Update values.
+    curWndMode = ((UIListButton*)menu.GetChild(0))->GetCurrentIndex();
+    curResolution = ((UIListButton*)menu.GetChild(1))->GetCurrentIndex();
+    curMaxFPS = ((UIListButton*)menu.GetChild(2))->GetCurrentIndex();
+    curMstVol = ((UISlider*)menu.GetChild(3))->GetValue();
+    //Update menu.
     menu.Update(delta);
 }
 

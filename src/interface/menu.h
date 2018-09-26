@@ -29,6 +29,7 @@ class UIMenu
 
         int GetCount() const;
         void AddChild(UIControl *child);
+        UIControl *GetChild(int index);
         void RemoveChild(int index); 
         void ClearChildren();
 

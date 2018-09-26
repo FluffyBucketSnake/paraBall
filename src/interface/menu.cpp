@@ -14,6 +14,15 @@ void UIMenu::AddChild(UIControl *control)
         SetFocus(0);
 }
 
+UIControl *UIMenu::GetChild(int index)
+{
+    //Check if index is valid.
+    if (index < 0 || index >= GetCount())
+        throw std::out_of_range("index");
+    //Return child.
+    return _children[index];
+}
+
 void UIMenu::RemoveChild(int index)
 {
     //Check if index is valid.
