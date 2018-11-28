@@ -13,19 +13,9 @@ void TitleScreen::Play()
     SCREENMANAGER.ToggleUpdate(LEVELSCREEN,true);
 }
 
-void TitleScreen::Options()
-{
-    //Parar titulo.
-    SCREENMANAGER.ToggleUpdate(TITLESCREEN,false);
-    SCREENMANAGER.ToggleRender(TITLESCREEN,false);
-    //Rodar tela de configurações.
-    SCREENMANAGER.ToggleUpdate(OPTIONSSCREEN,true);
-    SCREENMANAGER.ToggleRender(OPTIONSSCREEN,true);
-}
-
 void TitleScreen::Exit()
 {
-    GAME->Running = false;
+    
 }
 
 void TitleScreen::Init()
@@ -39,13 +29,6 @@ void TitleScreen::Init()
     playBtn->FontStyle = FONT_NORMAL;
     playBtn->ClickEvent = &Play;
     menu.AddChild(playBtn);
-    //Options button.
-    UIButton *optionsBtn = new UIButton;
-    optionsBtn->Text = "Options";
-    optionsBtn->Margin = 2;
-    optionsBtn->FontStyle = FONT_NORMAL;
-    optionsBtn->ClickEvent = &Options;
-    menu.AddChild(optionsBtn);
     //Exit button.
     UIButton *exitBtn = new UIButton;
     exitBtn->Text = "Exit";
