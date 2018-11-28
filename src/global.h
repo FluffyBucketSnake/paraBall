@@ -4,10 +4,6 @@
 #include <graphics/font.h>
 #include <screens/screenmanager.h>
 #include <data.h>
-#include <config.h>
-
-class paraBall;
-extern paraBall* GAME;
 
 extern const char* TITLE;
 extern const char* VERSION;
@@ -23,9 +19,7 @@ extern Mix_Chunk* SFX_DEATH;
 extern Font* FONT_NORMAL;
 extern Font* FONT_TITLE;
 
-extern DataFile DATAFILE;
 extern ScreenManager SCREENMANAGER;
-extern ConfigTracker CONFIGTRACKER;
 
 extern int TITLESCREEN;
 extern int LEVELSCREEN;

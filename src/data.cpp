@@ -2,57 +2,68 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <exception>
 
-void DataFile::Open(const std::string &filePath)
+static Data::Data Data::_data;
+
+static std::string* Data::_path = nullptr;
+static std::fstream* Data::_stream = nullptr;
+
+void Data::Reset()
 {
-    //Check if file exists. If not, create it.
-    struct stat buffer;
-    if (stat(filePath.c_str(),&buffer) != 0)
+    //Graphics related stuff.
+    _data.Fullscreen = 0;
+    _data.WindowWidth = 320;
+    _data.WindowHeight = 240;
+    _data.FPSCap = 60;
+    //Sound related stuff.
+    _data.MasterVolume = SDL_MIX_MAXVOLUME;
+    //Player statistic related stuff.
+    _data.Highscore = 0;
+}
+
+void Data::_assert()
+{
+    if (!IsOpen())
+        throw new std::ios_base::failure("No data file is open.");
+}
+
+bool Data::IsOpen()
+{
+    return (_stream != nullptr);
+}
+
+void Data::Open(const std::string& path)
+{
+    //Open stream.
+    _stream = new std::fstream(path,std::fstream::in | std::fstream::out | std::fstream::binary);
+    (*_path) = path;
+}
+
+void Data::Load()
+{
+    //Assert file being open.
+    _assert();
+    //Check file header.
+    char header[3];
+    _stream->read(header,sizeof(char)*3);
+    if (header[0] == 'p' && header[1] == 'B' && header[2] == 'd')
     {
-        //Create a file.
-        Stream.open(filePath,std::ios::out);
-        //Fill it with the default settings.
+        //If header is valid, read each value.
+        //Graphics.
+        _stream->read((char*)&_data.Fullscreen,sizeof(uint8_t));
+        _stream->read((char*)&_data.WindowWidth,sizeof(uint32_t));
+        _stream->read((char*)&_data.WindowHeight,sizeof(uint32_t));
+        _stream->read((char*)&_data.FPSCap,sizeof(uint8_t));
+        //Sound.
+        _stream->read((char*)&_data.MasterVolume,sizeof(int8_t));
+        //Statistics.
+        _stream->read((char*)&_data.Highscore,sizeof(uint32_t));
+    } 
+    else
+    {
+        //Otherwise, reset and save default data.
+        Reset();
         Save();
     }
-    //Open file.
-    Stream.open(filePath,std::ios::in | std::ios::out | std::ios::binary);
-}
-
-void DataFile::Load()
-{
-    //Check if stream is open.
-    if (!Stream.is_open())
-        return;
-    //Move the stream's read cursor to the beggining.
-    Stream.seekg(0);
-    //Read all the file until it reach end of the file or data.
-    Stream.read(reinterpret_cast<char*>(&LoadedData.WindowFlags),sizeof(Uint32));
-    Stream.read(reinterpret_cast<char*>(&LoadedData.Resolution.x),sizeof(int));
-    Stream.read(reinterpret_cast<char*>(&LoadedData.Resolution.y),sizeof(int));
-    Stream.read(reinterpret_cast<char*>(&LoadedData.MaxFps),sizeof(int));
-    Stream.read(reinterpret_cast<char*>(&LoadedData.MasterVolume),sizeof(int));
-}
-
-void DataFile::Save()
-{
-    //Check if stream is open.
-    if (!Stream.is_open())
-        return;
-    //Move the stream's write cursor to the beggining.
-    Stream.seekp(0);
-    //Save the data.
-    Stream.write(reinterpret_cast<const char*>(&LoadedData.WindowFlags),sizeof(Uint32));
-    Stream.write(reinterpret_cast<const char*>(&LoadedData.Resolution.x),sizeof(int));
-    Stream.write(reinterpret_cast<const char*>(&LoadedData.Resolution.y),sizeof(int));
-    Stream.write(reinterpret_cast<const char*>(&LoadedData.MaxFps),sizeof(int));
-    Stream.write(reinterpret_cast<const char*>(&LoadedData.MasterVolume),sizeof(int));
-    //Flush it down.
-    Stream.flush();
-}
-
-void DataFile::Close()
-{
-    //Check if stream is open. If it is, close it.
-    if (Stream.is_open())
-        Stream.close();
 }
