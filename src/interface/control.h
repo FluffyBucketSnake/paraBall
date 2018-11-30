@@ -8,7 +8,7 @@ class UIControl
         SDL_Point _layoutPosition = {0,0};
     public:
         SDL_Point RelativePosition = {0,0};
-        UIMenu *Parent = NULL;
+        UIMenu *Parent = nullptr;
         bool IsFocused = false;
 
         SDL_Point GetActualPosition() const;

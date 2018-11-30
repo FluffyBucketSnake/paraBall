@@ -3,7 +3,7 @@
 int ScreenManager::AddScreen(Screen *screen, int priority, int depth, bool enabled, bool visible)
 {
     //Checar se a tela eh valida.
-    if (screen == NULL)
+    if (screen == nullptr)
         return -1;
     //Verificar se ha colisao de ordem.
     bool changed = true;
@@ -79,7 +79,7 @@ Screen *ScreenManager::GetScreen(int id)
 {
     //Checar se a tela eh valida.
     if (id >= _screens.size() || id < 0)
-        return NULL;
+        return nullptr;
     //Retornar ponteiro.
     return _screens[id];
 }
@@ -147,9 +147,9 @@ void ScreenManager::GetStates(int id, bool *enabled, bool *visible)
     if (id >= _screens.size() || id < 0)
         return;
     //Verificar os estados.
-    if (enabled != NULL)
+    if (enabled != nullptr)
         *enabled = _enabled.find({id,_metadata[id].Priority}) != _enabled.end();
-    if (visible != NULL)
+    if (visible != nullptr)
         *visible = _visible.find({id,_metadata[id].Depth}) != _visible.end();
 }
 

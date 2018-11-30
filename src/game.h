@@ -4,12 +4,6 @@
 class Game
 {
     private:
-        const char* title = NULL;  //Titulo da janela.
-        int windowWidth = 320;
-        int windowHeight = 240;
-        Uint32 _flags = 0;
-        int masterVolume = SDL_MIX_MAXVOLUME;
-
         int deltaTime = 0;
         long lastTime = 0;
         long currentTime = 0;
@@ -19,8 +13,8 @@ class Game
         void HandleEvent(SDL_Event &event); //Controle de eventos do quadro atual.
         void Dispose(); //Libera o conteudo carregado.
     protected:
-        SDL_Window* Window = NULL; //Janela principal da jogo.
-        SDL_Renderer* Renderer = NULL; //Renderizador da janela do jogo.
+        SDL_Window* Window = nullptr; //Janela principal da jogo.
+        SDL_Renderer* Renderer = nullptr; //Renderizador da janela do jogo.
 
         virtual void Init() = 0;
         virtual void Update(int delta) = 0;

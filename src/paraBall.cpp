@@ -11,7 +11,7 @@ void paraBall::Init()
     //Carregar conteudo.
     Load();
     //Definir semente.
-    std::srand(time(NULL));
+    std::srand(time(nullptr));
     //Criar telas.
     TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen(*this),-3,-3,true,true);
     LEVELSCREEN = SCREENMANAGER.AddScreen(new LevelScreen,0,0,false,true);
@@ -25,31 +25,31 @@ void paraBall::Load()
     Keyboard_Init();
     //Carregar efeitos sonoros.
     SFX_CURSORMOVE = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/cursormove.wav").c_str());
-    if (SFX_CURSORMOVE == NULL)
+    if (SFX_CURSORMOVE == nullptr)
     {
         std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
         Running = false; 
     }
     SFX_SELECT = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/select.wav").c_str());
-    if (SFX_SELECT == NULL)
+    if (SFX_SELECT == nullptr)
     {
         std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
         Running = false; 
     }
     SFX_COLLISION = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/collision.wav").c_str());
-    if (SFX_COLLISION== NULL)
+    if (SFX_COLLISION== nullptr)
     {
         std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
         Running = false; 
     }
     SFX_DEATH = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/death.wav").c_str());
-    if (SFX_DEATH == NULL)
+    if (SFX_DEATH == nullptr)
     {
         std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
         Running = false; 
     }
     SFX_POINT = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/point.wav").c_str());
-    if (SFX_POINT == NULL)
+    if (SFX_POINT == nullptr)
     {
         std::cerr << "[ERROR]SFX Loading: " << SDL_GetError() << std::endl;
         Running = false; 
@@ -57,14 +57,14 @@ void paraBall::Load()
     //Carregar fontes.
     FONT_NORMAL = Font::LoadFont(Renderer,(std::string(SDL_GetBasePath()) + 
     "/gfx/prstartk.ttf").c_str(),8);
-    if (FONT_NORMAL == NULL)
+    if (FONT_NORMAL == nullptr)
     {
         std::cerr << "[ERROR]Font Loading: " << SDL_GetError() << std::endl;
         Running = false; 
     }
     FONT_TITLE = Font::LoadFont(Renderer,(std::string(SDL_GetBasePath()) + 
     "/gfx/prstartk.ttf").c_str(),24);
-    if (FONT_TITLE == NULL)
+    if (FONT_TITLE == nullptr)
     {
         std::cerr << "[ERROR]Font Loading: " << SDL_GetError() << std::endl;
         Running = false; 

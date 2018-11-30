@@ -11,8 +11,8 @@ unsigned char lastChar)
     font->_lastChar = lastChar;
     //Abrir arquivo da fonte.
     TTF_Font* ttf_font = TTF_OpenFont(file.c_str(),ptsize);
-    if (ttf_font == NULL)
-        return NULL;
+    if (ttf_font == nullptr)
+        return nullptr;
     //Guardar informacoes.
     font->_lineHeight = TTF_FontHeight(ttf_font);
     //Preencher glifos.
@@ -31,7 +31,7 @@ unsigned char lastChar)
             //Criar a superfice.
             SDL_Surface* tmp = TTF_RenderGlyph_Solid(ttf_font,i,{255,255,255,255});
             //Converte-la para textura.
-            if (tmp != NULL)
+            if (tmp != nullptr)
                 glyph.Texture = SDL_CreateTextureFromSurface(renderer,tmp);
             //Limpar.
             SDL_FreeSurface(tmp);
@@ -59,7 +59,7 @@ void Font::DestroyFont(Font* font)
     for(unsigned char i = font->_firstChar; i < font->_lastChar; i++)
     {
         struct Glyph *curr = &font->_glyphs[i];
-        if (curr->Texture != NULL)
+        if (curr->Texture != nullptr)
             SDL_DestroyTexture(curr->Texture);
     }
     //Destruir estrutura principal.
@@ -114,7 +114,7 @@ void Font::Render(SDL_Renderer* renderer, Font* font, std::string text, SDL_Poin
         //Receber o glifo atual.
         const Glyph *glyph = &font->GetGlyphs()[text[i]];
         //Verificar se valido.
-        if (glyph->Texture == NULL)
+        if (glyph->Texture == nullptr)
             continue;
         //Definir a fonte.
         SDL_Rect src;

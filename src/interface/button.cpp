@@ -14,7 +14,7 @@ void UIButton::Update(int delta)
     if (Keyboard_Released(SDL_SCANCODE_SPACE) && IsFocused)
     {
         Mix_PlayChannel(-1,SFX_SELECT,0);
-        if (ClickEvent != NULL)
+        if (ClickEvent != nullptr)
             ClickEvent();
         OnClick();
     }

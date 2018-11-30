@@ -6,6 +6,7 @@
 bool Game::PreInit()
 {
     //Inicializar subsistemas do SDL2.
+    std::clog << "[Log]Starting SDL2 subsystems..." << std::endl;
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cerr << "[ERROR]SDL_Init: " << SDL_GetError() << std::endl;
@@ -13,18 +14,19 @@ bool Game::PreInit()
         return false;
     }
     //Criar janela principal.
-    Window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, 
+    std::clog << "[Log]Creating game window..." << std::endl;
+    Window = SDL_CreateWindow(nullptr,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED, 320, 240, 
     SDL_WINDOW_SHOWN);
-    if (Window == NULL)
+    if (Window == nullptr)
     {
         std::cerr << "[ERROR]SDL_CreateWindow: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
-    SDL_SetWindowFullscreen(Window,_flags);
     //Criar renderizador.
+    std::clog << "[Log]Creating renderer..." << std::endl;
     Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
-    if (Renderer == NULL)
+    if (Renderer == nullptr)
     {
         std::cerr << "[ERROR]SDL_CreateRenderer: " << SDL_GetError() << std::endl;
         Dispose();
@@ -32,14 +34,15 @@ bool Game::PreInit()
     }
     SDL_SetRenderDrawBlendMode(Renderer,SDL_BLENDMODE_BLEND);
     //Inicializar SDL_mixer
+    std::clog << "[Log]Initializing SDL2_mixer..." << std::endl;
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,4096) != 0)
     {
         std::cerr << "[ERROR]Mix_OpenAudio: " << SDL_GetError() << std::endl;
         Dispose();
         return false;
     }
-    Mix_Volume(-1,masterVolume);
     //Inicializar TTF.
+    std::clog << "[Log]Initializing SDL2_ttf..." << std::endl;
     if (TTF_Init() != 0)
     {
         std::cerr << "[ERROR]TTF_Init: " << SDL_GetError() << std::endl;
@@ -99,10 +102,10 @@ void Game::Dispose()
     //Desligar audio.
     Mix_CloseAudio();
     //Limpar renderizador.
-    if (Renderer != NULL)
+    if (Renderer != nullptr)
         SDL_DestroyRenderer(Renderer);
     //Limpar janela.
-    if (Window != NULL)
+    if (Window != nullptr)
         SDL_DestroyWindow(Window);
     //Desligar subsistemas.
     SDL_Quit();
@@ -121,61 +124,8 @@ int Game::Run()
     while(Running)
         Loop();
     //Liberar memoria ocupada.
+    Unload();
     Dispose();
     //Retornar codigo de erro 0.
     return 0;
-}
-
-const char* Game::GetWindowTitle() const
-{
-    return title;
-}
-
-void Game::SetWindowTitle(const char* newtitle)
-{
-    //Trocar o ponteiro.
-    title = newtitle;
-    //Se a janela ja estiver aberta, atualizar o seu titulo.
-    if (Window != NULL)
-        SDL_SetWindowTitle(Window,title);
-}
-
-SDL_Point Game::GetWindowSize() const
-{
-    return {windowWidth,windowHeight};
-}
-
-void Game::SetWindowSize(const int newWidth, const int newHeight)
-{
-    //Guardar os novos valores.
-    windowWidth = newWidth;
-    windowHeight = newHeight;
-    //Se a janela ja foi criada, redefinir seu tamanho.
-    if (Window != NULL)
-        SDL_SetWindowSize(Window,windowWidth,windowHeight);
-}
-
-Uint32 Game::GetWindowFlags() const
-{
-    return _flags;
-}
-
-void Game::SetWindowFlags(const Uint32 flags)
-{
-    //Save the newly defined flags.
-    _flags = flags;
-    //Check if the window already exists, if so, and set their flag.
-    if (Window != NULL)
-        SDL_SetWindowFullscreen(Window,_flags);
-}
-
-int Game::GetMasterVolume() const
-{
-    return masterVolume;
-}
-
-void Game::SetMasterVolume(const int volume)
-{
-    masterVolume = volume;
-    Mix_Volume(-1,volume);
 }

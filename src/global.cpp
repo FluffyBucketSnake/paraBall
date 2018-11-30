@@ -4,7 +4,7 @@
 #include "graphics/font.h"
 #include <SDL2/SDL_mixer.h>
 
-paraBall* GAME = NULL;
+paraBall* GAME = nullptr;
 
 const char* TITLE = "paraBall";
 const char* VERSION = "Alpha";

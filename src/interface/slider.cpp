@@ -93,7 +93,7 @@ void UISlider::OnClick()
     //Call parent's method.
     UIButton::OnClick();
     //Lock/Unlock the containing menu.
-    if (Parent != NULL)
+    if (Parent != nullptr)
     {
         if (!_isLocked)
         {

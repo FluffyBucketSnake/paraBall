@@ -8,7 +8,7 @@ class UIButton : public UIControl
     protected:
         virtual void OnClick() {}
     public:
-        Font *FontStyle = NULL;
+        Font *FontStyle = nullptr;
         std::string Text = "";
         SDL_Color NormalColor = {100,100,100,255};
         SDL_Color FocusedColor = {175,175,175,255};
@@ -16,7 +16,7 @@ class UIButton : public UIControl
         float Scale = 1;
         int Margin = 0;
 
-        void (*ClickEvent)() = NULL;
+        void (*ClickEvent)() = nullptr;
 
         virtual SDL_Point GetSize() const;
         virtual void Update(int delta);

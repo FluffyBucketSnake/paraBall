@@ -33,7 +33,7 @@ void Player::Render(SDL_Renderer* renderer, int delta)
 void Player::HandleInput()
 {
     //Receber entrada.
-    const Uint8 *state = SDL_GetKeyboardState(NULL);
+    const Uint8 *state = SDL_GetKeyboardState(nullptr);
     movingLeft = state[SDL_SCANCODE_A];
     movingRight = state[SDL_SCANCODE_D];
 }
