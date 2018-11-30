@@ -8,14 +8,14 @@ namespace Data
 {
     struct Data
     {
-        uint8_t Fullscreen;
-        uint32_t WindowWidth;
-        uint32_t WindowHeight;
-        uint8_t FPSCap;
+        Uint32 Fullscreen;
+        int WindowWidth;
+        int WindowHeight;
+        int MaxFPS;
         
-        int8_t MasterVolume;
+        int MasterVolume;
 
-        uint32_t Highscore;
+        int Highscore;
     };
 
     extern Data _data;
@@ -29,18 +29,18 @@ namespace Data
 
     void Reset();
 
-    void ToggleFullscreen(uint8_t value);
-    uint8_t GetFullscreen();
-    void SetResolution(uint32_t width, uint32_t height);
-    void GetResolution(uint32_t* width, uint32_t* height);
-    void SetFPSCap(uint32_t value);
-    uint32_t GetFPSCap();
+    void ToggleFullscreen(Uint32 value);
+    Uint32 GetFullscreen();
+    void SetResolution(int width, int height);
+    void GetResolution(int &width, int &height);
+    void SetMaxFPS(int value);
+    int GetMaxFPS();
 
-    void SetMasterVolume(int8_t value);
-    int8_t GetMasterVolume();
+    void SetMasterVolume(int value);
+    int GetMasterVolume();
 
-    void SetHighscore(uint32_t value);
-    uint32_t GetHighscore();
+    void SetHighscore(int value);
+    int GetHighscore();
 
     extern std::fstream* _stream;
     extern std::string* _path;

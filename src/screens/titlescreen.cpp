@@ -4,6 +4,11 @@
 #include <graphics/colors.h>
 #include <global.h>
 
+TitleScreen::TitleScreen(paraBall &game) : _game(game)
+{
+
+}
+
 void TitleScreen::Play()
 {
     //Parar titulo.
@@ -15,7 +20,7 @@ void TitleScreen::Play()
 
 void TitleScreen::Exit()
 {
-    
+    GAME->Running = false;
 }
 
 void TitleScreen::Init()

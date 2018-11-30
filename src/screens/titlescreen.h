@@ -7,12 +7,14 @@ class TitleScreen : public Screen
 {
     private:
         UIMenu menu;
-        paraBall *_game;
+        paraBall &_game;
         
         static void Play();
         static void Options();
         static void Exit();
     public:
+        TitleScreen(paraBall &game);
+
         void Init();
         void Unload();
         void Resume();
