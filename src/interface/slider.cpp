@@ -67,20 +67,20 @@ void UISlider::HandleInput()
     //Check if user pressed a directional key.
     if (speed == 0)
     {
-        if (Keyboard_Pressed(SDL_SCANCODE_A))
+        if (Keyboard::Pressed(SDL_SCANCODE_A))
             speed = -1;
         else
-        if (Keyboard_Pressed(SDL_SCANCODE_D))
+        if (Keyboard::Pressed(SDL_SCANCODE_D))
             speed = 1;
     }
     //Check if the user released a directional key.
-    if (Keyboard_Released(SDL_SCANCODE_A) && speed < 0)
+    if (Keyboard::Released(SDL_SCANCODE_A) && speed < 0)
     {
         if (!repeatFlag)
             MoveCursor();
         speed = 0;
     }
-    if (Keyboard_Released(SDL_SCANCODE_D) && speed > 0)
+    if (Keyboard::Released(SDL_SCANCODE_D) && speed > 0)
     {
         if (!repeatFlag)
             MoveCursor();

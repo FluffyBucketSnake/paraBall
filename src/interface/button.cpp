@@ -11,7 +11,7 @@ SDL_Point UIButton::GetSize() const
 
 void UIButton::Update(int delta)
 {
-    if (Keyboard_Released(SDL_SCANCODE_SPACE) && IsFocused)
+    if (Keyboard::Released(SDL_SCANCODE_SPACE) && IsFocused)
     {
         Mix_PlayChannel(-1,SFX_SELECT,0);
         if (ClickEvent != nullptr)
@@ -26,7 +26,7 @@ void UIButton::Render(SDL_Renderer *renderer, int delta)
     SDL_Color color = NormalColor;
     if (IsFocused)
     {
-        if (Keyboard_IsDown(SDL_SCANCODE_SPACE))
+        if (Keyboard::IsDown(SDL_SCANCODE_SPACE))
             color = PressedColor;
         else
             color = FocusedColor;

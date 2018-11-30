@@ -1,56 +1,53 @@
 #include <keyboard.h>
 
-const Uint8* Keyboard_CurrentState;
-const Uint8* Keyboard_LastState;
-const Uint8* Keyboard_SDLState;
-int Keyboard_KeyNumber;
+Uint8* Keyboard::CurrentState;
+Uint8* Keyboard::LastState;
+const Uint8* Keyboard::SDLState;
+int Keyboard::NumberOfKeys;
 
-void Keyboard_Init()
+void Keyboard::Init()
 {
     //Guardar ponteiro principal.
-    Keyboard_KeyNumber = 0;
-    Keyboard_SDLState = SDL_GetKeyboardState(&Keyboard_KeyNumber);
+    NumberOfKeys = 0;
+    SDLState = SDL_GetKeyboardState(&NumberOfKeys);
     //Criar marca-estados.
-    _keyboard_CurrentState = new Uint8[Keyboard_KeyNumber];
-    _keyboard_LastState = new Uint8[Keyboard_KeyNumber];
+    CurrentState = new Uint8[NumberOfKeys];
+    LastState = new Uint8[NumberOfKeys];
     //Guardar estado atual.
-    memcpy(_keyboard_CurrentState,Keyboard_SDLState,Keyboard_KeyNumber);
-    //Redirecionar ponteiros globais.
-    Keyboard_CurrentState = _keyboard_CurrentState;
-    Keyboard_LastState = _keyboard_LastState;
+    memcpy(CurrentState,SDLState,NumberOfKeys);
 }
 
-void Keyboard_Update()
+void Keyboard::Update()
 {
     //Guardar estado anterior.
-    memcpy(_keyboard_LastState,Keyboard_CurrentState,Keyboard_KeyNumber);
+    memcpy(LastState,CurrentState,NumberOfKeys);
     //Receber estado atual.
-    memcpy(_keyboard_CurrentState,Keyboard_SDLState,Keyboard_KeyNumber);
+    memcpy(CurrentState,SDLState,NumberOfKeys);
 }
 
-void Keyboard_Quit()
+void Keyboard::Quit()
 {
     //Liberar memoria.
-    delete[] Keyboard_CurrentState;
-    delete[] Keyboard_LastState;
+    delete[] CurrentState;
+    delete[] LastState;
 }
 
-bool Keyboard_IsDown(SDL_Scancode key)
+bool Keyboard::IsDown(SDL_Scancode key)
 {
-    return Keyboard_CurrentState[key];
+    return CurrentState[key];
 }
 
-bool Keyboard_IsUp(SDL_Scancode key)
+bool Keyboard::IsUp(SDL_Scancode key)
 {
-    return !Keyboard_CurrentState[key];
+    return !CurrentState[key];
 }
 
-bool Keyboard_Pressed(SDL_Scancode key)
+bool Keyboard::Pressed(SDL_Scancode key)
 {
-    return Keyboard_CurrentState[key] && !Keyboard_LastState[key];
+    return CurrentState[key] && !LastState[key];
 }
 
-bool Keyboard_Released(SDL_Scancode key)
+bool Keyboard::Released(SDL_Scancode key)
 {
-    return Keyboard_LastState[key] && !Keyboard_CurrentState[key];
+    return LastState[key] && !CurrentState[key];
 }

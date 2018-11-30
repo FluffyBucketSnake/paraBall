@@ -22,7 +22,7 @@ void paraBall::Init()
 void paraBall::Load()
 {
     //Iniciar controles.
-    Keyboard_Init();
+    Keyboard::Init();
     //Carregar efeitos sonoros.
     SFX_CURSORMOVE = Mix_LoadWAV((std::string(SDL_GetBasePath()) + "sfx/cursormove.wav").c_str());
     if (SFX_CURSORMOVE == nullptr)
@@ -74,7 +74,7 @@ void paraBall::Load()
 void paraBall::Update(int delta)
 {
     //Atualizar controles.
-    Keyboard_Update();
+    Keyboard::Update();
     //Atualizar telas.
     SCREENMANAGER.Update(delta);
 }
@@ -104,5 +104,5 @@ void paraBall::Unload()
     Font::DestroyFont(FONT_NORMAL);
     Font::DestroyFont(FONT_TITLE);
     //Liberar controles.
-    Keyboard_Quit();
+    Keyboard::Quit();
 }
