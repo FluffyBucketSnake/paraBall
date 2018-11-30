@@ -13,7 +13,7 @@ void paraBall::Init()
     //Definir semente.
     std::srand(time(NULL));
     //Criar telas.
-    TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen,-2,-2,true,true);
+    TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen(*this),-3,-3,true,true);
     LEVELSCREEN = SCREENMANAGER.AddScreen(new LevelScreen,0,0,false,true);
     GAMEOVERSCREEN = SCREENMANAGER.AddScreen(new GameOverScreen,-1,-1,false,false);
     std::cout << "Finished creating screens" << '\n';
@@ -105,6 +105,4 @@ void paraBall::Unload()
     Font::DestroyFont(FONT_TITLE);
     //Liberar controles.
     Keyboard_Quit();
-    //Liberar dados.
-    DATAFILE.Close();
 }

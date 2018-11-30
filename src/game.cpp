@@ -117,7 +117,7 @@ int Game::Run()
     Running = true;
     //Chamar funcao de inicializacao das classes filhas.
     Init();
-    //Loopar o jogo enquanto a bandeira 'running' é vetor.
+    //Loopar o jogo enquanto a bandeira 'running' é verdadeira.
     while(Running)
         Loop();
     //Liberar memoria ocupada.

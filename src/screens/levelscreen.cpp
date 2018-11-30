@@ -4,6 +4,11 @@
 
 LevelScreen::LevelScreen()
 {
+    Reset();
+}
+
+void LevelScreen::Resume()
+{
     //Definir posicoes iniciais.
     Reset();
 }

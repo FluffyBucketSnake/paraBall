@@ -19,7 +19,6 @@ class Game
         void HandleEvent(SDL_Event &event); //Controle de eventos do quadro atual.
         void Dispose(); //Libera o conteudo carregado.
     protected:
-        bool Running;   //Bandeira de execuacao. O jogo fechara quando a bandeira for marcada como falsa.
         SDL_Window* Window = NULL; //Janela principal da jogo.
         SDL_Renderer* Renderer = NULL; //Renderizador da janela do jogo.
 
@@ -29,6 +28,7 @@ class Game
         virtual void Load() = 0;
         virtual void Unload() = 0;
     public:
+        bool Running = true;
         int MaxFPS = 0;
 
         int Run();

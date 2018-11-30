@@ -1,4 +1,10 @@
 #include <global.h>
+#include <paraBall.h>
+#include "screens/screenmanager.h"
+#include "graphics/font.h"
+#include <SDL2/SDL_mixer.h>
+
+paraBall* GAME = NULL;
 
 const char* TITLE = "paraBall";
 const char* VERSION = "Alpha";
@@ -12,9 +18,7 @@ Mix_Chunk* SFX_COLLISION;
 Font* FONT_NORMAL;
 Font* FONT_TITLE;
 
-DataFile DATAFILE;
 ScreenManager SCREENMANAGER;
-ConfigTracker CONFIGTRACKER;
 
 int TITLESCREEN;
 int LEVELSCREEN;

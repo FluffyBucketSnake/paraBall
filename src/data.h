@@ -4,19 +4,46 @@
 #include <fstream>
 #include <string>
 
-struct Data{
-    int WindowFlags = 0;
-    SDL_Point Resolution = {320,240};
-    int MaxFps = 60;
-    int MasterVolume = SDL_MIX_MAXVOLUME;
-};
+namespace Data
+{
+    struct Data
+    {
+        Uint32 Fullscreen;
+        int WindowWidth;
+        int WindowHeight;
+        int MaxFPS;
+        
+        int MasterVolume;
 
-struct DataFile{
-    std::fstream Stream;
-    Data LoadedData;
+        int Highscore;
+    };
 
-    void Open(const std::string &filePath);
+    extern Data _data;
+
+    void Open(const std::string& path);
+    void Close();
     void Load();
     void Save();
-    void Close();
-};
+    bool IsOpen();
+    const std::string& GetCurrentPath();
+
+    void Reset();
+
+    void ToggleFullscreen(Uint32 value);
+    Uint32 GetFullscreen();
+    void SetResolution(int width, int height);
+    void GetResolution(int &width, int &height);
+    void SetMaxFPS(int value);
+    int GetMaxFPS();
+
+    void SetMasterVolume(int value);
+    int GetMasterVolume();
+
+    void SetHighscore(int value);
+    int GetHighscore();
+
+    extern std::fstream* _stream;
+    extern std::string* _path;
+
+    void _assert();
+}
