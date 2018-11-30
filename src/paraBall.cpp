@@ -8,6 +8,8 @@
 
 void paraBall::Init()
 {
+    //Reference the game application. TODO: clean this shit.
+    GAME = this;
     //Carregar conteudo.
     Load();
     //Definir semente.
@@ -16,7 +18,6 @@ void paraBall::Init()
     TITLESCREEN = SCREENMANAGER.AddScreen(new TitleScreen(*this),-3,-3,true,true);
     LEVELSCREEN = SCREENMANAGER.AddScreen(new LevelScreen,0,0,false,true);
     GAMEOVERSCREEN = SCREENMANAGER.AddScreen(new GameOverScreen,-1,-1,false,false);
-    std::cout << "Finished creating screens" << '\n';
 }
 
 void paraBall::Load()
