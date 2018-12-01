@@ -59,6 +59,9 @@ $(OUTDIR)/% : $(RESDIR)/% | $$(@D)/.
 #Build game.
 all: $(BINARY) $(RESOURCES_OUT)
 
+debug: CFLAG+=-g
+debug: all
+
 #Run executable
 run: all
 	./$(BINARY)

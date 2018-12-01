@@ -1,5 +1,4 @@
 #include <screens/titlescreen.h>
-#include <interface/button.h>
 #include <keyboard.h>
 #include <graphics/colors.h>
 #include <global.h>
@@ -25,37 +24,19 @@ void TitleScreen::Exit()
 
 void TitleScreen::Init()
 {
-    //Menu.
-    menu.Position = {64,160};
-    //Play button.
-    UIButton *playBtn = new UIButton;
-    playBtn->Text = "Play";
-    playBtn->Margin = 2;
-    playBtn->FontStyle = FONT_NORMAL;
-    playBtn->ClickEvent = &Play;
-    menu.AddChild(playBtn);
-    //Exit button.
-    UIButton *exitBtn = new UIButton;
-    exitBtn->Text = "Exit";
-    exitBtn->Margin = 2;
-    exitBtn->FontStyle = FONT_NORMAL;
-    exitBtn->ClickEvent = &Exit;
-    menu.AddChild(exitBtn);
+
 }
 
 void TitleScreen::Unload()
 {
-    menu.ClearChildren();
 }
 
 void TitleScreen::Resume()
 {
-    menu.SetFocus(0);
 }
 
 void TitleScreen::Update(int delta)
 {
-    menu.Update(delta);
 }
 
 void TitleScreen::Render(SDL_Renderer *renderer, int delta)
@@ -69,8 +50,6 @@ void TitleScreen::Render(SDL_Renderer *renderer, int delta)
     //Renderizar titulo.
     Font::Render(renderer,FONT_TITLE,TITLE,{SCREENWIDTH/2,64},COLR_WHITE,FVec2(1),FA_Center,
     3.25f*ccos);
-    //Renderizar menu.
-    menu.Render(renderer,delta);
     //Versao.
     Font::Render(renderer,FONT_NORMAL,"v." + std::string(VERSION),
     {SCREENWIDTH,SCREENHEIGHT},COLR_WHITE,FVec2(1),FA_BottomRight,0);

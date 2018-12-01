@@ -3,36 +3,17 @@
 #include <keyboard.h>
 #include <graphics/colors.h>
 #include <screens/levelscreen.h>
-#include <interface/button.h>
 
 void GameOverScreen::Init()
 {
-    //Menu.
-    menu.Position = {(SCREENWIDTH/2)-48,SCREENHEIGHT-64};
-    //Try again.
-    UIButton *tryAgainBtn = new UIButton;
-    tryAgainBtn->Text = "Try again.";
-    tryAgainBtn->Margin = 2;
-    tryAgainBtn->FontStyle = FONT_NORMAL;
-    tryAgainBtn->ClickEvent = &Restart;
-    menu.AddChild(tryAgainBtn);
-    //Go to  title.
-    UIButton *goToTitleBtn = new UIButton;
-    goToTitleBtn->Text = "Go to title.";
-    goToTitleBtn->Margin = 2;
-    goToTitleBtn->FontStyle = FONT_NORMAL;
-    goToTitleBtn->ClickEvent = &GotoTitle;
-    menu.AddChild(goToTitleBtn);
 }
 
 void GameOverScreen::Unload()
 {
-    menu.ClearChildren();
 }
 
 void GameOverScreen::Resume() 
 {
-    menu.SetFocus(0);
 }
 
 void GameOverScreen::Restart()
@@ -56,8 +37,6 @@ void GameOverScreen::GotoTitle()
 
 void GameOverScreen::Update(int delta)
 {
-    //Update menu.
-    menu.Update(delta);
 }
 
 void GameOverScreen::Render(SDL_Renderer *renderer, int delta)
@@ -66,8 +45,6 @@ void GameOverScreen::Render(SDL_Renderer *renderer, int delta)
     SDL_SetRenderDrawColor(renderer,0,0,0,235);
     SDL_Rect bounds = {0,0,SCREENWIDTH,SCREENHEIGHT};
     SDL_RenderFillRect(renderer,&bounds);
-    //Render menu.
-    menu.Render(renderer,delta);
     //Render points.
     Font::Render(renderer,FONT_NORMAL,"Final Score: " + 
     std::to_string(((LevelScreen*)SCREENMANAGER.GetScreen(LEVELSCREEN))->Points), 
